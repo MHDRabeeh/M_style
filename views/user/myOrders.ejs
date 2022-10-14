@@ -1,0 +1,142 @@
+
+<%-include('../partials/nevTwo') %> 
+<link rel="stylesheet" href="/NewFolder/css/myOrder.css">
+<!-- Breadcrumb Section End -->
+ <%if(myOrders.length>0){%>
+
+
+  
+  <section class="">
+    <div class=" container py-2">
+    <div class="row d-flex justify-content-center align-items-center">
+      <div id="mydiv" class="col">
+        <% myOrders.forEach((order)=>{%>
+       
+
+      
+        
+        <div class="card card-stepper mb-2" style="border-radius: 10px;" id="order-<%= order.id %> ">
+          <div class="card-body p-4">
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="d-flex flex-column">
+                <!-- <span class="lead fw-normal">Your order has been delivered</span> -->
+                <span class="text-muted small bold mb-1">orderId:#<%=order.id%> </span>
+                <% order.products.forEach((order)=>{%>
+                
+               
+                <span class="text-muted mb-2"><img src="/NewFolder/image-/<%= order.productId.images[0] %> " alt="" width="60" class="img-fluid rounded">
+                  <a href="#" class="text-muted"><%= order.productId.productName %> </a> x <%=order.quantity%> </span>
+                <%})%> 
+                
+
+                <span class="text-muted small">on <%= order.createdAt%>  </span>
+              </div>
+              <div>
+                <a class="btn btn-sm btn-outline-dark" href="/myOrders/<%=order.id%> ">View order details</a>
+                
+                <button class="btn btn-sm btn-outline-danger" onclick="cancelOrder('<%=order.id%>')" type="button"><i><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-slash-circle" viewBox="0 0 16 16">
+                  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                  <path d="M11.354 4.646a.5.5 0 0 0-.708 0l-6 6a.5.5 0 0 0 .708.708l6-6a.5.5 0 0 0 0-.708z"/>
+                </svg></i></button>
+                
+              </div>
+            </div>
+            <hr class="my-4">
+  
+            <div>
+              <article class="card">
+                  <header class="card-header"> My Orders / Tracking </header>
+                  <div class="card-body">
+               
+                      
+                      <div class="track">
+                        <% if(order.status == "Pending"){%>
+                          <div class="step active"> <span  class="icon"> <i class="fa fa-check"></i> </span> <span class="text">Order placed</span> </div>
+                          <div class="step "> <span class="icon"> <i class="fa fa-user"></i> </span> <span class="text"> Order packed</span> </div>
+                          <div class="step"> <span class="icon"> <i class="fa fa-truck"></i> </span> <span class="text"> Order Dispatched </span> </div>
+                          <div class="step "> <span class="icon"> <i class="fa fa-box"></i> </span> <span class="text">Out for delivering</span> </div>
+                          <% }else if(order.status == "Shipped" && order.status == "Packed"){%>
+                            <div class="step active"> <span  class="icon"> <i class="fa fa-check"></i> </span> <span class="text">Order placed</span> </div>
+                          <div class="step active"> <span class="icon"> <i class="fa fa-user"></i> </span> <span class="text"> Order packed</span> </div>
+                          <div class="step"> <span class="icon"> <i class="fa fa-truck"></i> </span> <span class="text"> Order Dispatched </span> </div>
+                          <div class="step "> <span class="icon"> <i class="fa fa-box"></i> </span> <span class="text">Out for delivering</span> </div>
+                          <%}else if(order.status == "Out for delivery"){%>
+                            <div class="step active"> <span  class="icon"> <i class="fa fa-check"></i> </span> <span class="text">Order placed</span> </div>
+                          <div class="step active"> <span class="icon"> <i class="fa fa-user"></i> </span> <span class="text"> Order packed</span> </div>
+                          <div class="step active"> <span class="icon"> <i class="fa fa-truck"></i> </span> <span class="text"> Order Dispatched </span> </div>
+                          <div class="step"> <span class="icon"> <i class="fa fa-box"></i> </span> <span class="text">Out for delivering</span> </div>
+                          <%}else if(order.status == "Delivered"){%>
+                            <div class="step active"> <span  class="icon"> <i class="fa fa-check"></i> </span> <span class="text">Order placed</span> </div>
+                          <div class="step active"> <span class="icon"> <i class="fa fa-user"></i> </span> <span class="text"> Order packed</span> </div>
+                          <div class="step active"> <span class="icon"> <i class="fa fa-truck"></i> </span> <span class="text"> Order Dispatched </span> </div>
+                          
+                          <div class="step active"> <span class="icon"> <i class="fa fa-box"></i> </span> <span class="text">Out for delivering</span> </div>
+                          <!-- <div class="step active"> <span class="icon"> <i class="fa fa-box"></i> </span> <span class="text">Out for delivering</span> </div> -->
+                          <% }else{%>
+                            <div class="step active"> <span  class=""> <i class=""></i> </span> <span class="text"></span> </div>
+                            <div class="step active"> <span class=""> <i class=""></i> </span> <span class="text"> </span> </div>
+                            <div class="step active"> <span class=""> <i class=""></i> </span> <span class="text">  </span> </div>
+                            <div class="step active"> <span class="icon"> <i><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-slash-circle" viewBox="0 0 16 16">
+                              <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                              <path d="M11.354 4.646a.5.5 0 0 0-.708 0l-6 6a.5.5 0 0 0 .708.708l6-6a.5.5 0 0 0 0-.708z"/>
+                            </svg></i> </span> <span class="text">Cancelled</span> </div>
+                          <%}%> 
+                      </div>
+                      <hr>
+                      
+                      <hr>
+                      <a href="/" class="btn btn-warning" data-abc="true"> <i class="fa fa-chevron-left"></i> Back to orders</a>
+                  </div>
+              </article>
+          </div>
+  
+           
+           
+  
+          </div>
+        </div>
+        <%})%> 
+    
+      </div>
+    </div>
+    </div>
+  </section>
+  <%}else{%>
+
+ 
+
+  <section class="container">
+    <div class="text-center py-5">
+      <img src="/img/emptycart.png" alt="">
+      <div>
+        <p class="h4">There is nothing in your orders. Let's shop something.</p>
+      </div>
+      <a href="/" class="primary-btn">Shop</a>
+    </div>
+  </section>
+  
+ 
+  
+  <% } %> 
+
+  <script>
+    
+    async function cancelOrder(orderId){
+      const response = await axios({
+        method:"post",
+        url:`/admin/cancelOrder/${orderId}`
+      })
+      if(response.status == 201){
+        window.location.reload()
+      }else{
+
+        console.log("this is alredy delivered")
+        window.location.reload()
+      }
+
+    }
+  </script>
+
+  
+
+ 

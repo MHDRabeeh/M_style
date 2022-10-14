@@ -1,0 +1,180 @@
+<%- include("../partials/admin-navbar") %> 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+<style>
+  body{
+    margin-top:20px;
+    background:#FAFAFA;
+}
+.order-card {
+    color: #fff;
+}
+
+.bg-c-blue {
+    background: linear-gradient(45deg,#4099ff,#73b4ff);
+}
+
+.bg-c-green {
+    background: linear-gradient(45deg,#2ed8b6,#59e0c5);
+}
+
+.bg-c-yellow {
+    background: linear-gradient(45deg,#FFB64D,#ffcb80);
+}
+
+.bg-c-pink {
+    background: linear-gradient(45deg,#FF5370,#ff869a);
+}
+
+
+.card {
+    border-radius: 5px;
+    -webkit-box-shadow: 0 1px 2.94px 0.06px rgba(4,26,55,0.16);
+    box-shadow: 0 1px 2.94px 0.06px rgba(4,26,55,0.16);
+    border: none;
+    margin-bottom: 30px;
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+}
+
+.card .card-block {
+    padding: 25px;
+}
+
+.order-card i {
+    font-size: 26px;
+}
+
+.f-left {
+    float: left;
+}
+
+.f-right {
+    float: right;
+}
+</style>
+
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+<div class="container mt-5" >
+    <div class="row mt-5" >
+        <div class="col-md-4 col-xl-3 mt-5">
+            <div class="card bg-c-blue order-card mt-5">
+                <div class="card-block">
+                    <h6 class="m-b-20">Total User </h6>
+                    <h2 class="text-right"><i class="f-left"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                      <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+                      <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+                    </svg></i><span><%=orderStatus[0]%> </span></h2>
+                    <p class="m-b-0">Total User<span class="f-right"><%=orderStatus[0]%></span></p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4 col-xl-3 mt-5">
+            <div class="card bg-c-green order-card mt-5">
+                <div class="card-block">
+                    <h6 class="m-b-20">Total Sales</h6>
+                    <h2 class="text-right"><i class="fa fa-rocket f-left"></i><span><%= orderStatus[1] %> </span></h2>
+                    <p class="m-b-0">Total Order<span class="f-right"><%= orderStatus[2] %> </span></p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4 col-xl-3 mt-5">
+            <div class="card bg-c-yellow order-card mt-5">
+                <div class="card-block">
+                    <h6 class="m-b-20">Pending Order</h6>
+                    <h2 class="text-right"><i class="fa fa-refresh f-left"></i><span><%=orderStatus[3]%> </span></h2>
+                    <p class="m-b-0">Completed Orders<span class="f-right"><%= orderStatus[4] %> </span></p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4 col-xl-3 mt-5">
+            <div class="card bg-c-pink order-card mt-5">
+                <div class="card-block">
+                    <h6 class="m-b-20">Cancelled Order</h6>
+                    <h2 class="text-right"><i class="fa fa-credit-card f-left"></i><span><%= orderStatus[5] %> </span></h2>
+                    <p class="m-b-0">Completed Orders<span class="f-right">351</span></p>
+                </div>
+            </div>
+        </div>
+	</div>
+</div>
+<div class="row mt-5" >
+  <canvas class="mt-5 ml-5 " id="pieChart" style="width:100%;max-width:600px"></canvas>
+  
+  <!-- <canvas  class="mt-5 ml-5"  id="myChart" style="width:100%;max-width:600px"> <h1></h1></canvas> -->
+  <canvas id="myChart" style="width:100%;max-width:600px"></canvas>
+</div>
+
+
+<% const totalOrders = orderStatus[2] %>
+
+
+<% const totalDally =  dallyTotal.map(function(data){ %>
+  <%   return data.sales})%> 
+ 
+  <% const Date =  dallyTotal.map(function(data){ %>
+   <%   return data._id})%>
+<% console.log(Date,"lsdkfjsdlkfj") %> 
+
+ 
+
+
+    <script>
+      var xValues = ["Cancelled", "Pending", "Shipped", "Delivered", ];
+      var yValues = ["<%=orderStatus[5]%>","<%=orderStatus[3]%>" , "<%=orderStatus[6]%>", "<%=orderStatus[4]%>"];
+      var barColors = [
+        "#b91d47",
+        "#00aba9",
+        "#2b5797",
+        "#1e7145"
+      ];
+      
+      new Chart("pieChart", {
+        type: "pie",
+        data: {
+          labels: xValues,
+          datasets: [{
+            backgroundColor: barColors,
+            data: yValues
+          }]
+        },
+        options: {
+          title: {
+            display: true,
+            text: "ORDER STATUS"
+          }
+        }
+      });
+      </script>
+
+<script>
+  var xValues = ["<%=Date[0]%>", "<%=Date[1]%>", "<%=Date[2]%>", "<%=Date[3]%>", "<%=Date[4]%>","<%=Date[5]%>","<%=Date[6]%>"];
+  var yValues = ["<%=totalDally[0]%>","<%=totalDally[1]%>","<%=totalDally[2]%>","<%=totalDally[3]%>","<%=totalDally[4]%>","<%=totalDally[5]%>","<%=totalDally[6]%>"];
+  var barColors = ["#7ecee0", "#5ed6b6","blue","orange","brown"];
+  
+  new Chart("myChart", {
+    type: "bar",
+    data: {
+      labels: xValues,
+      datasets: [{
+        backgroundColor: barColors,
+        data: yValues
+      }]
+    },
+    options: {
+      legend: {display: false},
+      title: {
+        display: true,
+        text: "World Wine Production 2018"
+      }
+    }
+  });
+  </script>
+
+
+     
+     
+

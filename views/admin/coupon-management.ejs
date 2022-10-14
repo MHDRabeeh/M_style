@@ -1,0 +1,110 @@
+
+
+<div></div>
+<button type="button" class="btn btn-primary mt-5 ml-4" data-toggle="modal" data-target="#exampleModal" data-whatever="@getbootstrap">Add coupon</button>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form  action="/admin/Add-Coupon" method="post">
+          <div class="form-group">
+            <label for="recipient-name" class="col-form-label">Name</label>
+            <input type="text" class="form-control" id="recipient-name" name="name">
+          </div>
+          <div class="form-group">
+            <label for="recipient-name" class="col-form-label" >Coupon</label>
+            <input type="text" class="form-control" id="recipient-name" name="coupon">
+          </div>
+          <div class="form-group">
+            <label for="recipient-name" class="col-form-label">Discound</label>
+            <input type="text" class="form-control" id="recipient-name" name="discount">
+          </div>
+          <!-- <div class="form-group">
+            <label for="recipient-name" class="col-form-label" >Coupon Limit</label>
+            <input type="text" class="form-control" id="recipient-name" name="couponLimit">
+          </div> -->
+          <div class="form-group">
+            <label for="recipient-name" class="col-form-label">Min purchase</label>
+            <input type="text" class="form-control" id="recipient-name" name="minPurchase">
+          </div>
+          <div class="form-group">
+            <label for="recipient-name" class="col-form-label">Max Limit</label>
+            <input type="text" class="form-control" id="recipient-name" name="maxLimit">
+          </div>
+
+          <div class="form-group">
+            <label for="recipient-name" class="col-form-label">Exp Date</label>
+            <input type="date" class="form-control" id="recipient-name" name="expDate">
+          </div>
+       
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Send message</button>
+      </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="px-lg-5 py-2 mt-2 p-md-2"></div>
+
+ <div class="jumbotron shadow m-2 bg-white rounded">
+
+        <table id="admin" class="table table-striped table-bordered table-hover" style="width:100%">
+          <thead>
+            <tr>
+              <th>NO</th>
+              <th> Name</th>
+              <th>Coupon</th>
+              <th>Discound</th>
+              <th>Coupon Limit</th> 
+              <th>Min purchase</th>
+              <th>status</th>
+              <th>Action</th>
+              <th>Exp Date</th>
+             
+            </tr>
+          </thead>
+          <tbody>
+            <% showCoupons.forEach((element,index)=>{%>
+              
+           
+            <tr>
+              <td><%= index+1 %> </td>
+              <td><%= element.name %> </td>
+              <td><%= element.couponCode %> </td>
+              <td><%= element.discount %> </td>
+              <td><%= element.maxLimit %> </td>
+              <td><%= element.minPurchase %> </td>
+              <% if(element.isActive){%>
+                <td>True</td>
+             <% }else{%>
+              <td> false</td>
+            <% } %> 
+            <td>
+            <% if(element.isActive){%>
+              <form action="/admin/coupon-deactive/<%=element.id%>" method="post">
+               <button class="btn btn-sm btn-outline-success" type="submit">Active</button>
+              </form>
+           <% }else{%>
+            <form action="/admin/coupon-active/<%=element.id%>" method="post">
+            <button class="btn btn-sm btn-outline-danger" type="submit">Deactive</button>
+          </form>
+          <% } %> 
+            </td>
+              <td><%= element.expDate.toDateString() %> </td>
+            </tr>
+            <%}); %>
+          </tbody>
+        </table>
+      </div>

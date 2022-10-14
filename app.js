@@ -21,7 +21,7 @@ const categoryModel = require('./models/categoryModel')
 var app = express();
 
 //mongoose connection
-const mongoURI = "mongodb://localhost:27017/MensFasion";
+const mongoURI = process.env.MONGO_URI;
 mongoose
   .connect(mongoURI)
   .then((res) => {

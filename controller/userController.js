@@ -134,7 +134,7 @@ module.exports = {
         viewcart: viewcart,
         couponDiscount,
         couponCode,
-        layout: "layout/Cart-layout",
+       
       });
     } catch (err) {
       console.log(err);

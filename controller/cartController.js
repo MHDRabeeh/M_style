@@ -92,9 +92,7 @@ let viewcart  = await cartModel.findOne({ userId:userId }).populate("products.pr
 
   
 
-    res.render('user/Cart',{viewcart,
-      layout:'layout/Cart-layout'
-    })
+    res.render('user/Cart',{viewcart})
 
   } catch (error) {
     console.log(error);

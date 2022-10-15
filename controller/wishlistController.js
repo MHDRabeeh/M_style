@@ -48,9 +48,7 @@ const { updateOne } = require('../models/wishlistModel');
         const findwish = await wishlistModel.findOne({userId:userId}).populate("myWish.productId").exec()
         // console.log(findwish.myWish)
       
-        res.render('user/wishlist',{findwish,
-            layout:'layout/Cart-layout'
-        })
+        res.render('user/wishlist',{findwish})
       
        } catch (error) {
         console.log(error);

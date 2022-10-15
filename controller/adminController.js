@@ -190,7 +190,7 @@ module.exports = {
     }
   },
   editproduct: async (req, res) => {
-    console.log(req.body);
+    console.log(req.body,"ooooooooooooooooooooooooooooooooooo");
     try {
       await productModel.findByIdAndUpdate(req.params.id, {
         productName: req.body.productName,

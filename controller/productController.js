@@ -88,7 +88,7 @@ orderdeitails:async function (req,res){
 
   
   const orderId = req.params.id
-  const userId = req.user.id
+  const userId = req.user?.id
   const myOrder = await orderModel.findById(orderId).populate([
     {
       path:"userId",

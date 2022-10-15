@@ -29,8 +29,13 @@ async function deleteItem(productId, cartCount) {
           
 
         }  toastr.error('cart item deleted')
-            // $(`#cartItem-${productId}`).load(location.href + ` #cartItem-${productId}>*`, "");
+        if(response == 200){
+
+            console.log("(((((((((((((((((((")
             window.location.reload()
+        }
+            // $(`#cartItem-${productId}`).load(location.href + ` #cartItem-${productId}>*`, "");
+           
    
     } catch (error) {
 
@@ -39,8 +44,15 @@ async function deleteItem(productId, cartCount) {
 }
 
 async function addToCart(productId,productName,price,quantity,offerPrice){
-    console.log(productId+"id" , productName+"name",price+"price",quantity+"quantity",offerPrice+"offerPrice")
-   console.log("Running add to cart ON Axios")
+    console.log(productId+"id" , productName+"nameppppppppppppppppppppppppppppppppppppppppppppppppppppppp",price+"price",quantity+"quantity",offerPrice+"offerPrice")
+ 
+    await Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        title: 'product added to cart',
+        showConfirmButton: false,
+        timer: 1600
+      })
    let itemQty = document.getElementById(`itemQty-${productId}`)?.value
     if(quantity == -1 && itemQty == 1 ){
         deleteItem(productId,1);
@@ -60,8 +72,17 @@ async function addToCart(productId,productName,price,quantity,offerPrice){
             })
             console.log(response)
             if(response.status == 200 ){
-                toastr.options = {"positionClass" : "toast-bottom-right"}
-                toastr.error ('thid product is out of stock')
+                console.log("working add to cart0000000000000000000000")
+                // toastr.options = {"positionClass" : "toast-bottom-right"}
+                // toastr.error ('thid product is out of stock')
+               await Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'this prouct is out of stock',
+                    showConfirmButton: false,
+                    timer: 1600
+                  })
+
             }else{
                 if (quantity == -1 ){
     

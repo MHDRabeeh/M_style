@@ -61,7 +61,7 @@ router.post("/resendOtp", async (req, res) => {
 
 
 
-//////////////////////////////////////////////
+///////////////////////////////////////////////////////////////
 router.get("/show-category-product/:id", productController.categoryWiseList);
 
 router.get("/viewProduct/:id", productController.viewProduct);

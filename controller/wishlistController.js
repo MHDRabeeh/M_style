@@ -8,9 +8,6 @@ const { updateOne } = require('../models/wishlistModel');
         const productId = req.params.id
        
         const name = req.name;
-        
-        
-      
         try {
           const userId = req.user.id
       
@@ -36,7 +33,7 @@ const { updateOne } = require('../models/wishlistModel');
           console.log('wishlist first added')
       
           }
-          // res.send('success')
+          //  res.send('success')
           res.redirect('back')
         } catch (err) {
           console.log(err);

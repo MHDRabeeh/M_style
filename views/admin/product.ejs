@@ -125,7 +125,7 @@
                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                      <form action="/admin/editproduct/<%= product.id %>" method="post" enctype="multipart/form-data">
+                      <form action="/admin/editproduct/<%= product.id %>" method="post">
                         <div class="mb-3">
                           <label for="recipient-name" class="col-form-label">Product Name</label>
                           <input type="text" class="form-control" name="productName" value=" <%= product.productName %>" id="recipient-name">
@@ -166,10 +166,10 @@
                         </div>
                         <div class="mb-3">
                           <label for="recipient-name" class="col-form-label">Image</label>
-                          <input type="file" multiple name="image" class="form-control" id="recipient-name">
+                          <input type="file" multiple name="" class="form-control" id="recipient-name">
                         </div>
 
-                        .
+                        
                         <div class="mb-3">
                           <label for="message-text" class="col-form-label">Discription</label>
                           <input class="form-control" name="discription" value=" <%= product.discription %>" id="message-text">

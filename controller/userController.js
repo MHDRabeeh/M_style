@@ -76,7 +76,7 @@ module.exports = {
         state: req.body.state,
       });
       await myUser.save();
-      console.log("Running");
+      // console.log("Running");
       res.redirect("back");
     } catch (err) {
       console.log(err);

@@ -29,7 +29,7 @@
           
 
           
-            <td><%=orders.id%> </td>
+          <td><a href="/admin/orders/<%= orders.id %>" class="link-dark"><%=orders.id%></a></td>
             <td><%= orders.userId.email %> </td>
             <td>
                 <%=orders.deliveryAddress.firstName  %>

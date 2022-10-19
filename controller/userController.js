@@ -120,8 +120,15 @@ module.exports = {
   showCheckOut: async function (req, res) {
     try {
       const userId = req.user.id;
-      const couponDiscount = Number(req.session.coupon?.discount);
+   
+       let couponDiscount =req.session.coupon?.discount;
+      // if(couponDiscount  == null)
+      // {
+      //   couponDiscount =0
+      //       }
+            console.log(couponDiscount)
       const couponCode = req.session.coupon?.code;
+       console.log(req.session.coupon?.discount,"kkkkkkkkkkkkkkkkkkkkkkkk")
 
       const myUser = await userModel.findById(userId);
       const showAddress = myUser.address;

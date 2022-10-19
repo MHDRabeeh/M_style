@@ -46,12 +46,29 @@ async function deleteItem(productId, cartCount) {
 async function addToCart(productId,productName,price,quantity,offerPrice){
     console.log(productId+"id" , productName+"nameppppppppppppppppppppppppppppppppppppppppppppppppppppppp",price+"price",quantity+"quantity",offerPrice+"offerPrice")
  
-    await Swal.fire({
+    // await Swal.fire({
+    //     position: 'top-end',
+    //     icon: 'success',
+    //     title: 'product added to cart',
+    //     showConfirmButton: false,
+    //     timer: 1600
+    //   })
+     
+     const Toast =await Swal.mixin({
+        toast: true,
         position: 'top-end',
-        icon: 'success',
-        title: 'product added to cart',
         showConfirmButton: false,
-        timer: 1600
+        timer: 2000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.addEventListener('mouseenter', Swal.stopTimer)
+          toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+      })
+    
+       await Toast.fire({
+        icon: 'success',
+        title: 'cart successfully Updated'
       })
    let itemQty = document.getElementById(`itemQty-${productId}`)?.value
     if(quantity == -1 && itemQty == 1 ){

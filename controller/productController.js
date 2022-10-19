@@ -114,6 +114,17 @@ orderdeitails:async function (req,res){
   }
 
  
+},
+
+  allProduct:async function(req,res){
+   try{
+    console.log("working all product show")
+     const allProduct = await productModel.find();
+    //  res.send(allProduct)
+     res.render('user/shopeAll',{allProduct})
+   }catch(err){
+    console.log(err);
+   }
 }
 
 }

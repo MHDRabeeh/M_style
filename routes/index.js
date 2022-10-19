@@ -18,6 +18,7 @@ const {
   getOtpForm,
   sendOtp
 } = require("../middlewares/otp");
+const { allProduct } = require("../controller/productController");
 
 /* GET home page. */
 router.get("/", productController.showProduct);
@@ -103,4 +104,9 @@ router.put("/changePassword", userController.changePassword)
 /////////////////////// orderDetails/////////
 
 router.get('/myOrders/:id',productController.orderdeitails)
+
+//  router.get('/allProduct',productController.allProduct)
+router.get('/allProduct',productController.allProduct)
+
+
 module.exports = router;

@@ -1,0 +1,212 @@
+<%- include("../partials/admin-navbar") %> 
+<!-- Breadcrumb Section Begin -->
+<section class="breadcrumb-section set-bg" data-setbg="/img/breadcrumb.jpg">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12 text-center">
+          <div class="breadcrumb__text">
+            <h2>Order Details</h2>
+            <div class="breadcrumb__option">
+              <a href="/">Home</a>
+              <a href="/myOrders">My Orders</a>
+              <span>Order Details</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- Breadcrumb Section End -->
+  
+  <div class="container-fluid">
+  
+    <div class="container" id="invoice">
+      <!-- Title -->
+      <div class="d-flex justify-content-between align-items-center py-3">
+        <h4 class="h5 mb-0"><a href="#" class="text-muted"></a> Order#<%=myOrder.id%> </h4>
+      </div>
+  
+      <!-- Main content -->
+      <div class="row">
+        <div class="col-lg-8">
+          <!-- Details -->
+          <div class="card mb-4">
+            <div class="card-body">
+              <div class="mb-3 d-flex justify-content-between">
+                <div>
+                  <span class="mx-3"><%=  myOrder.createdAt.toDateString() %> </span>
+                  <span class="mx-3 badge bg-success"><%= myOrder.paymentType %> </span>
+                  <span class="mx-3 badge bg-warning"><%= myOrder.status %> </span>
+                </div>
+           
+
+                <div class="d-flex">
+                  <button class="btn p-0 btn-icon-text" onclick="printInvoice('invoice')"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-printer-fill" viewBox="0 0 16 16">
+                    <path d="M5 1a2 2 0 0 0-2 2v1h10V3a2 2 0 0 0-2-2H5zm6 8H5a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-3a1 1 0 0 0-1-1z"/>
+                    <path d="M0 7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2h-1v-2a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v2H2a2 2 0 0 1-2-2V7zm2.5 1a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1z"/>
+                  </svg><span class="text"> Invoice</span></button>
+                </div>
+              </div>
+              <hr>
+              <table class="table table-borderless">
+                <tbody>
+                  <%let price = 0 %> 
+                  <%let offerPrice = 0%> 
+                  
+                 <% myOrder.products.forEach((product)=>{%>       
+                  <tr>
+                    <td>
+                      <div class="d-flex mb-2">
+                        <div class="flex-shrink-0">
+                          <img src="/NewFolder/image-/<%= product.productId.images[0]%>  " alt="" width="60" class="img-fluid rounded mx-2">
+                        </div>
+                        <div class="flex-lg-grow-1 ms-3">
+                          <h6 class="small mb-0"><a href="/product/ " class="text-reset"><%= product.productId.productName %> </a></h6>
+                          <!-- <span class="small">Category: Black</span> -->
+                        </div>
+                      </div>
+                    </td>
+                    <%  price = price + product.productId.price%>
+                    <%  offerPrice = offerPrice + product.productId.offerPrice%>
+                    <td>x <%=product.quantity%>  </td>
+                     <% if( product.offerPrice){%>
+                    <td class="text-right"> <del class="text-muted mx-1">₹<%=product.productId.price%> </del> ₹ <%= product.productId.offerPrice %> </td>
+                    <% }else{%>
+                    <td class="text-right">₹ <%=prouct.price%> </td>
+                    <% } %> 
+                  </tr>
+                  <%}) %> 
+                  
+
+                </tbody>
+              
+                <tfoot>
+                  <!-- <tr>
+                    <td colspan="2">Subtotal</td>
+                    <td class="text-right">  </td>
+                  </tr> -->
+                  <tr>
+                    <td colspan="2">Shipping <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-truck" viewBox="0 0 16 16">
+                      <path d="M0 3.5A1.5 1.5 0 0 1 1.5 2h9A1.5 1.5 0 0 1 12 3.5V5h1.02a1.5 1.5 0 0 1 1.17.563l1.481 1.85a1.5 1.5 0 0 1 .329.938V10.5a1.5 1.5 0 0 1-1.5 1.5H14a2 2 0 1 1-4 0H5a2 2 0 1 1-3.998-.085A1.5 1.5 0 0 1 0 10.5v-7zm1.294 7.456A1.999 1.999 0 0 1 4.732 11h5.536a2.01 2.01 0 0 1 .732-.732V3.5a.5.5 0 0 0-.5-.5h-9a.5.5 0 0 0-.5.5v7a.5.5 0 0 0 .294.456zM12 10a2 2 0 0 1 1.732 1h.768a.5.5 0 0 0 .5-.5V8.35a.5.5 0 0 0-.11-.312l-1.48-1.85A.5.5 0 0 0 13.02 6H12v4zm-9 1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm9 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>
+                    </svg>  </td>
+                    <td class="text-right">₹0.0</td>
+                  </tr>
+                  <% let discount = myOrder.coupon.discount%> 
+                  <% if(discount){%>
+
+                  <tr>
+                    <td colspan="2">Coupon Discount</td>
+                  
+                   
+                   
+                    <td class="text-danger text-right">₹ <%=discount%></td>
+                  </tr>
+
+                 
+                  <tr>
+                    <td colspan="2">Coupon (Code: <i class="fa-solid fa-tags"></i> </td>
+                    <td class="text-danger text-right"><%= myOrder.coupon.code %> </td>
+                  </tr>
+                  <% } %>
+                  <tr>
+                    <td colspan="2">Price</td>
+                    <td class="text-danger text-right"> <%=price%> </td>
+                  </tr>
+                  <tr>
+                    <td colspan="2">Offer Price</td>
+                    <td class="text-danger text-right"><%=offerPrice%> </td>
+                  </tr>
+                  
+                  <tr class="font-weight-bold">
+                    <td colspan="2">TOTAL</td>
+                    <td class="text-right">₹<%=myOrder.total %></td>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+          </div>
+         
+          <!-- Payment -->
+          <div class="card mb-4">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-lg-6">
+                  <h3 class="h6">Payment Method</h3>
+                  <p><%=myOrder.paymentType%> <br>
+                    Total: ₹ <%=myOrder.total%>   </p>
+              
+
+
+                </div>
+                <div class="col-lg-6">
+                  <h3 class="h6"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
+                    <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/>
+                  </svg> Billing address</h3>
+                  <address class="card-text">
+                    <%=myOrder.deliveryAddress.firstName +" "+myOrder.deliveryAddress.lastName%> <br>
+                   <%=myOrder.deliveryAddress.areaLocalName +" ,"+myOrder.deliveryAddress.address%>
+                   <%= myOrder.deliveryAddress.district%> <br>
+                   <%= myOrder.deliveryAddress.state%> <br>
+                   Pincode: <%=myOrder.deliveryAddress.postcode%> ,<br>
+                    Ph: <%=myOrder.deliveryAddress.mobileNumber %> 
+                  </address>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4">
+
+
+
+          <!-- Customer Notes -->
+          <!-- <div class="card mb-4">
+            <div class="card-body">
+              <h3 class="h6">Customer Notes</h3>
+              <p>Sed enim, faucibus litora velit vestibulum habitasse. Cras lobortis cum sem aliquet mauris rutrum. Sollicitudin. Morbi, sem tellus vestibulum porttitor.</p>
+            </div>
+          </div> -->
+          <div class="card mb-4">
+            <!-- Shipping information -->
+            <div class="card-body">
+              <!-- <h3 class="h6">Shipping Information</h3>
+              <strong>FedEx</strong>
+              <span><a href="#" class="text-decoration-underline" target="_blank">FF1234567890</a> <i class="bi bi-box-arrow-up-right"></i> </span>
+              <hr> -->
+              <h3 class="h6"><i class="fa-solid fa-location-dot"></i> Shipping Address</h3>
+              <address class="card-text">
+                <%=myOrder.deliveryAddress.firstName +" "+myOrder.deliveryAddress.lastName%> <br>
+                   <%=myOrder.deliveryAddress.areaLocalName +" ,"+myOrder.deliveryAddress.address%>
+                   <%= myOrder.deliveryAddress.district%> <br>
+                   <%= myOrder.deliveryAddress.state%> <br>
+                   Pincode: <%=myOrder.deliveryAddress.postcode%> ,<br>
+                    Ph: <%=myOrder.deliveryAddress.mobileNumber %> 
+                
+              </address>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    function printInvoice(tagId) {
+          var hashId = "#"+ tagId;
+          var tagname =  $(hashId).prop("tagName").toLowerCase() ;
+          var attributes = ""; 
+          var attrs = document.getElementById(tagId).attributes;
+            $.each(attrs,function(i,elem){
+              attributes +=  " "+  elem.name+" ='"+elem.value+"' " ;
+            })
+          var divToPrint= $(hashId).html() ;
+          var head = "<html><head>"+ $("head").html() + "</head>" ;
+          var allContent = head + "<body  onload='window.print()' >"+ "<" + tagname + attributes + ">" +  divToPrint + "</" + tagname + ">" +  "</body></html>"  ;
+          var newWin=window.open('','Print-Window');
+
+          newWin.document.open();
+          newWin.document.write(allContent);
+          newWin.document.close();
+         setTimeout(function(){newWin.close();},1000);
+      }
+
+</script>

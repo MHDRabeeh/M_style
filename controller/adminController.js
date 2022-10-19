@@ -235,6 +235,36 @@ orders:async function(req,res){
 
   res.render("admin/orderManage",{allorders,layout: 'layout/admin-layout'})
 
+},
+orderDetials: async function(req,res){
+  try{
+
+  
+    const orderId = req.params.id
+    const userId = req.user?.id
+    const myOrder = await orderModel.findById(orderId).populate([
+      {
+        path:"userId",
+        model:"User"
+      },
+      {
+        path:"coupon",
+        model:"Coupon"
+      },
+      {
+        path:"products.productId",
+        model:"Product"
+      }
+    ])
+    .exec();
+    
+    if(myOrder&& myOrder.userId.id== userId){
+      res.render("admin/orderDetails",{myOrder})
+    }
+  
+  }catch(err){
+    console.log(err)
+    }
 }
 
 

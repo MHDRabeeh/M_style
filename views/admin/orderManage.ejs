@@ -1,11 +1,15 @@
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.css">
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.css"> -->
+<!-- <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" /> -->
 <%- include('../partials/admin-navbar') %>
 
 
 <div class="container py-5 mt-5">
+  <!-- <a class="btn btn-outline-primary mb-2 mt-3 ml-4" onclick="exportCsv()">Sales Report</a> -->
+
   <div id="mydiv" class="jumbotron shadow m-2 bg-white rounded">
+    
     <table
-      id=""
+      id="datatablesSimple"
       class="table table-striped table-bordered table-hover"
       style="width: 100%"
     >
@@ -100,11 +104,28 @@
         <script src="/js/OrderManagement.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.js"></script>
         <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+        
         <script>
-          $(document).ready(function () {
-            $("#admin").DataTable();
-          });
+          function d(){
+            console.log("Hello")
+          }
+          let dataTable = new simpleDatatables.DataTable("#datatablesSimple")
+        
+          let date = new Date().toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit',
+          })
+          function exportCsv() {
+            dataTable.export({
+              type: "csv",
+              skipColumn: [0, 13, 14],
+              filename: "order_report" + " " + date
+            });
+          }
         </script>
+
+      
       </tbody>
     </table>
   </div>

@@ -170,6 +170,7 @@ module.exports = {
           model: "Product",
         },
       ]);
+      myOrders.reverse()
 
       res.render("user/myOrders", { myOrders });
     } catch (err) {

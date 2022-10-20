@@ -70,6 +70,10 @@ router.post('/coupon-deactive/:id',couponController.couponDeactive)
  router.get('/dashboard',productController.showDashboard)
 
  router.get("/orders/:id",adminController.orderDetials)
+ router.get('/d',function(req,res){
+  // res.send("thej")
+ res.render('admin/salesreport')
+ })
 
 
   //////////payment///////

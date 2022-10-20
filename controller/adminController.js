@@ -258,9 +258,9 @@ orderDetials: async function(req,res){
     ])
     .exec();
     
-    if(myOrder&& myOrder.userId.id== userId){
+   
       res.render("admin/orderDetails",{myOrder})
-    }
+    
   
   }catch(err){
     console.log(err)

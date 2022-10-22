@@ -116,7 +116,7 @@
           <ul>
             <li>Subtotal <span><del>₹<%= viewcart.subTotal.toFixed(2) %></del></span></li>
             <% let discount = viewcart.subTotal - viewcart.total %>
-            <li>Discount <span>₹<%=discount.toFixed(2)%></span></li>
+            <li>Discount <span>₹ <%=discount.toFixed(2)%></span></li>
             <li>Total <span>₹<%= viewcart.total.toFixed(2) %></span></li>
           </ul>
           <a href="/checkout" class="btn btn-primary rounded-pill py-sm-3 px-sm-5 ">PROCEED TO CHECKOUT</a>

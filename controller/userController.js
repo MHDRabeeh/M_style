@@ -128,8 +128,7 @@ module.exports = {
       //       }
             console.log(couponDiscount)
       const couponCode = req.session.coupon?.code;
-       console.log(req.session.coupon?.discount,"kkkkkkkkkkkkkkkkkkkkkkkk")
-
+      
       const myUser = await userModel.findById(userId);
       const showAddress = myUser.address;
       const viewcart = await cartModel
